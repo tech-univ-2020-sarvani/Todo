@@ -1,0 +1,25 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "An application that handles todos",
+  "main": "npm node hapi",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "npm",
+    "node",
+    "hapi"
+  ],
+  "author": "sarvani",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^19.0.5",
+    "@hapi/joi": "^17.1.0",
+    "promise-fs": "^2.1.1"
+  }
+}
