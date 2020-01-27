@@ -1,5 +1,6 @@
 const uuid = require('uuid');
 const fileUtils = require('../utils/fileOperations.js');
+const axios = require('axios').default;
 
 const getHandler= async (request,h) => {
 	const notes = await fileUtils.readJson('./notes.json');
@@ -39,4 +40,11 @@ const putHandler = async(request, h) => {
 	await fileUtils.writeToJson('./notes.json', arrayNotes);
 	return h.response('updated successfully');
 };
-module.exports = {getHandler, postHandler, deleteHandler, putHandler};
+
+const quotesHandler = async(request, h) => {
+	const quotesData = await axios.get('http://api.quotable.io/random');
+	const quotes = quotesData.data.content;
+	return h.response(quotes);
+};
+
+module.exports = {getHandler, postHandler, deleteHandler, putHandler, quotesHandler};

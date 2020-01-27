@@ -67,4 +67,12 @@ describe('In the server', () => {
 		const response = await server.inject(options);
 		expect(response.statusCode).toBe(200);
 	});
+	it ('The route GET /quotes should return a statuscode 200', async () => {
+		const options = {
+			method: 'GET',
+			url: '/quotes',
+		};
+		const response = await server.inject(options);
+		expect(response.statusCode).toBe(200);
+	});
 });

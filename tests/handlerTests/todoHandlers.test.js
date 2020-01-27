@@ -60,3 +60,15 @@ describe('The function putHandler', () => {
 		expect(mockWriteJSON).toHaveBeenCalled();
 	});
 });
+
+describe('The function quotesHandler', () => {
+	it ('should call readJson', async(done) => {
+		const mockHandler = {
+			response: ()=>{},
+		};
+		const mockReadJSON = jest.spyOn(fileUtils, 'readJson');
+		await getHandler(null, mockHandler);
+		expect(mockReadJSON).toHaveBeenCalled();
+		done();
+	});
+});
