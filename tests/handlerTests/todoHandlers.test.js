@@ -44,3 +44,19 @@ describe('The function deleteHandler', () => {
 		expect(mockWriteJSON).toHaveBeenCalled();
 	});
 });
+
+describe('The function putHandler', () => {
+	it ('should call writeJson', async() => {
+		const mockHandler = {
+			response: () => {},
+		};
+		const mockRequest = {
+			params: {
+				id: 'd039d713-953a-492f-be72-6140b021f6f7',
+			}
+		};
+		const mockWriteJSON=jest.spyOn(fileUtils,'writeToJson');
+		await deleteHandler(mockRequest, mockHandler);
+		expect(mockWriteJSON).toHaveBeenCalled();
+	});
+});

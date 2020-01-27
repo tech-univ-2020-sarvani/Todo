@@ -9,4 +9,8 @@ const deleteSchema = Joi.object({
 	id:Joi.string().required()
 });
 
-module.exports = {postSchema, deleteSchema};
+const putSchema = Joi.object({
+	id: Joi.string().guid().required()
+});
+
+module.exports = {postSchema, deleteSchema, putSchema};

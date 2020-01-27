@@ -54,7 +54,15 @@ describe('In the server', () => {
 	it ('The route DELETE /notes/id should return a statuscode 200', async () => {
 		const options = {
 			method: 'DELETE',
-			url: '/notes/{id}',
+			url: '/notes/5deb4192-eb38-4d76-8021-a6b3d4685353',
+		};
+		const response = await server.inject(options);
+		expect(response.statusCode).toBe(200);
+	});
+	it ('The route PUT /notes/id should return a statuscode 200', async () => {
+		const options = {
+			method: 'PUT',
+			url: '/notes/5deb4192-eb38-4d76-8021-a6b3d4685353',
 		};
 		const response = await server.inject(options);
 		expect(response.statusCode).toBe(200);
