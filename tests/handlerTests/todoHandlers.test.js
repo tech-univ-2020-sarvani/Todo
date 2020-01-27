@@ -1,32 +1,46 @@
-const {getHandler, postHandler} = require('../../handlers/todoHandler.js');
+const {getHandler, postHandler, deleteHandler} = require('../../handlers/todoHandler.js');
 const fileUtils = require('../../utils/fileOperations.js'); 
 
 describe('The function getHandler', () => {
-	// it('should return a statusCode 200', async (done) => {
-	// 	const codeMock = jest.fn();
-	// 	const mockHandler = {
-	// 		response: jest.fn(() => {
-	// 			return {code: codeMock};
-	// 		}),
-	// 	};
-	// 	await operations.getHandler(null, mockHandler);
-	// 	expect(codeMock).toHaveBeenCalledWith(200);
-	// 	done();
-	// });
-	it ('should call readJson', async() => {
-		const mockReadJSON=jest.spyOn(fileUtils,'readJson');
-		mockReadJSON.mockImplementation(()=>'{"status":"abc"}');
-		const result = await getHandler(null,{'response':()=>'{"status":"abc"}'});
+	it ('should call readJson', async(done) => {
+		const mockHandler = {
+			response: ()=>{},
+		};
+		const mockReadJSON = jest.spyOn(fileUtils, 'readJson');
+		await getHandler(null, mockHandler);
 		expect(mockReadJSON).toHaveBeenCalled();
-		expect(result).toBe('{"status":"abc"}');
+		done();
 	});
 });
 describe('The function postHandler', () => {
-	it ('should call writeToJson', () => {
-		const mockWriteJSON=jest.spyOn(fileUtils,'WriteToJson');
-		mockReadJSON.mockImplementation(()=>'{"status":"abc"}');
-		const result = await postHandler(null,{'response':()=>'Data saved'});
+	it ('should call writeToJson', async (done) => {
+		const mockHandler = {
+			response: () => {},
+		};
+		const mockRequest = {
+			payload: {
+				'title': 'task3',
+				'describe' : 'complete post api',
+			}
+		};
+		const mockWriteJSON = jest.spyOn(fileUtils,'writeToJson');
+		await postHandler(mockRequest, mockHandler);
 		expect(mockWriteJSON).toHaveBeenCalled();
-		expect(result).toBe('Data saved');
+		done();
+	});
+});
+describe('The function deleteHandler', () => {
+	it ('should call writeJson', async() => {
+		const mockHandler = {
+			response: () => {},
+		};
+		const mockRequest = {
+			params: {
+				id: 'd039d713-953a-492f-be72-6140b021f6f7',
+			}
+		};
+		const mockWriteJSON=jest.spyOn(fileUtils,'writeToJson');
+		await deleteHandler(mockRequest, mockHandler);
+		expect(mockWriteJSON).toHaveBeenCalled();
 	});
 });

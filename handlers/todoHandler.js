@@ -7,17 +7,25 @@ const getHandler= async (request,h) => {
 };
 
 const postHandler = async (request, h)=> {
-	const jsonObj2 = request.payload;
+	let jsonObj2 = request.payload;
 	jsonObj2.id = uuid();
 	jsonObj2.active = true;
-	let arrayNotes = fileUtils.readJson('./notes.json');
+	let arrayNotes = await fileUtils.readJson('./notes.json');
+	console.log(arrayNotes);
 	arrayNotes.notes.push(jsonObj2);
-	await fileUtils.writeToJson('./notes.json', arrayNotes);
+	fileUtils.writeToJson('./notes.json', arrayNotes);
 	return h.response('Data saved');
 };
 
 const deleteHandler = async(request, h)=> {
-
+	const parameters = request.params;
+	let arrayNotes = await fileUtils.readJson('./notes.json');
+	for(let i=0;i<arrayNotes.notes.length;i++){
+		if(arrayNotes.notes[i].id === parameters.id){
+			arrayNotes.notes.splice(i,1);
+		}
+	}
+	await fileUtils.writeToJson('./notes.json', arrayNotes);
+	return h.response('deleted successfully');
 };
-
-module.exports = {getHandler, postHandler};
+module.exports = {getHandler, postHandler, deleteHandler};

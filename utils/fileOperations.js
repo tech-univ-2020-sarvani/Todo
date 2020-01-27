@@ -3,7 +3,6 @@ const fs = require('promise-fs');
 const readJson = async (filename) =>{
 	const jsonObj = await fs.readFile(filename, 'utf8');
 	const notes = JSON.parse(jsonObj);
-
 	return notes;
 };
 

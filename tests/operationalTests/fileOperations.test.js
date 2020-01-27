@@ -5,7 +5,7 @@ describe('The function readJson', () => {
 	it('should call the readFile function',async()=>{
 		const mockReadFile=jest.spyOn(fs,'readFile');
 		mockReadFile.mockImplementation(()=>'{"status":"abc"}');
-		const result = await readJson();
+		const result = await readJson('./notes.json');
 		expect(mockReadFile).toHaveBeenCalled();
 		expect(result.status).toBe('abc');
 	});
@@ -14,9 +14,9 @@ describe('The function readJson', () => {
 describe('The function writeJson', () => {
 	it('writeJSON should call the writeFile function',async()=>{
 		const mockWriteFile=jest.spyOn(fs,'writeFile');
-		mockWriteFile.mockImplementation(()=>'written');
-		await writeToJson('{"status":"abc"}');
+		mockWriteFile.mockImplementation(()=> '{"status":"abc"}');
+		await writeToJson('./notes.json','{"status":"abc"}');
 		expect(mockWriteFile).toHaveBeenCalled();
-		// expect(mockWriteFile).toHaveBeenCalledWith('./notes.json','{"status":"abc"}');
+		expect(mockWriteFile).toHaveBeenCalledWith('./notes.json','{"status":"abc"}');
 	});
 });
