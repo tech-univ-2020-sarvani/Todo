@@ -18,7 +18,7 @@ describe('In the server', () => {
 	});
 	
 	it ('The route GET /notes should return the contents from the file', async () => {
-		const jsonObj = await fs.readFile('./notes.json', 'utf8');
+		const jsonObj = await fs.readFile('./resources/notes.json', 'utf8');
 		const options = {
 			method: 'GET',
 			url: '/notes',
