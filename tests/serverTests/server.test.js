@@ -1,5 +1,5 @@
 const fs = require('promise-fs');
-const start = require('./server.js');
+const start = require('../../server.js');
 const server = start();
 
 const init = async ()=> {
