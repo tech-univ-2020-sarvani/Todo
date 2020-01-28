@@ -1,5 +1,5 @@
-const {getHandler, postHandler, deleteHandler} = require('../../handlers/todoHandler.js');
-const fileUtils = require('../../utils/fileOperations.js'); 
+const {getHandler, postHandler, deleteHandler} = require('../../src/handlers/todoHandler.js');
+const fileUtils = require('../../src/utils/fileOperations.js'); 
 
 describe('The function getHandler', () => {
 	it ('should call readJson', async(done) => {

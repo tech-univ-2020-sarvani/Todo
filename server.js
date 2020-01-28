@@ -1,5 +1,5 @@
 const Hapi = require('@hapi/hapi');
-const routes = require('./routes/todoRoutes.js');
+const routes = require('./src/routes/todoRoutes.js');
 const Joi = require('@hapi/joi');
 
 const start = () => {
