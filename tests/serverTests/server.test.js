@@ -24,7 +24,7 @@ describe('In the server', () => {
 			url: '/notes',
 		};
 		const response = await server.inject(options);
-		
+		console.log(response);
 		expect(response.result).toBe(jsonObj);
 	});
 	it('The route POST /notes should return a statusCode 200', async () => {
