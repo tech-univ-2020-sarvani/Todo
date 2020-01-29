@@ -8,3 +8,5 @@ const registerPlugin = async function () {
 };
 
 registerPlugin();
+
+module.exports = registerPlugin;

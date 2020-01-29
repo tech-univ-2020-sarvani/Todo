@@ -2,12 +2,14 @@ const uuid = require('uuid');
 const dbUtils = require('../utils/dbOperations.js');
 
 const getNotes = async (request,h) => {
-	const notes = await dbUtils.get('SELECT * from notes');
+	console.log(server.sequelize);
+	const notes = await dbUtils.get('SELECT * from notes', noteSequelize);
 	// console.log(notes);
 	return h.response(JSON.stringify(notes));
 };
 
 const postNotes = async (request, h)=> {
+	const noteSequelize = request.server.sequelize;
 	let jsonObj2 = request.payload;
 	jsonObj2.id = uuid();
 	jsonObj2.active = 1;
@@ -15,13 +17,14 @@ const postNotes = async (request, h)=> {
 	const q = `(${Object.values(jsonObj2).map(x=>`'${x}'`).join(',')})`;
 	query+=q;
 	// console.log(query);	
-	dbUtils.insert(query);
+	dbUtils.insert(query, noteSequelize);
 	return h.response('Data saved');
 };
 
 const deleteNotes = async(request, h)=> {
+	const noteSequelize = request.server.sequelize;
 	const parameters = request.params;
-	const result = await dbUtils.deleteQuery(`DELETE from notes where id = '${parameters.id}'`);
+	const result = await dbUtils.deleteQuery(`DELETE from notes where id = '${parameters.id}'`, noteSequelize);
 	console.log(result);
 	if(result[1] === 0){
 		h.response(`${parameters.id} is invalid`);
@@ -30,8 +33,9 @@ const deleteNotes = async(request, h)=> {
 };
 
 const putNotes = async(request, h) => {
+	const noteSequelize = request.server.sequelize;
 	const parameters = request.params;
-	await dbUtils.updateQuery(`UPDATE notes set isactive = false where id = '${parameters.id}'`);
+	await dbUtils.updateQuery(`UPDATE notes set isactive = false where id = '${parameters.id}'`, noteSequelize);
 	return h.response('updated successfully');
 };
 
