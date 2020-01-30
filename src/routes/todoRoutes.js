@@ -7,7 +7,7 @@ const routesArray = [
 	{path: '/notes', method:'GET', handler: getNotes},
 	{path: '/notes/{id}', method:'DELETE', config : {handler: deleteNotes, validate:{params: deleteSchema}}},
 	{path: '/notes/{id}', method:'PUT', config : {handler: putNotes, validate:{params: putSchema}}},
-	// {path: '/quotes', method:'GET', handler: quotesHandler}
+	{path: '/quotes', method:'GET', handler: quotesHandler}
 ];
 
 module.exports = routesArray;
