@@ -5,6 +5,6 @@ module.exports = {
 	register: async function (server, options) {
 		const sequelizeNote = new Sequelize('postgres://sarvanideekshitula:@localhost:5432/todo');
 		console.log('Connection to postgres established');
-		server.decorate('server', 'Sequelize', sequelizeNote);
+		server.decorate('server', 'sequelize', sequelizeNote);
 	},
 };
