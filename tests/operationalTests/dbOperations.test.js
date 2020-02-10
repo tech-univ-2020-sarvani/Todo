@@ -31,24 +31,24 @@ describe('In the dbOperations', () => {
 			mockSequelizeQuery.mockRestore();
 		});
 	});
-	// describe('The function deleteQuery', () => {
-	// 	it ('should call sequelize.query', async() => {
-	// 		const mockSequelizeQuery = jest.spyOn(sequelize,'query');
-	// 		mockSequelizeQuery.mockResolvedValue('[{"status":"abc"}]');
-	// 		const result = await dbUtils.deleteQuery('DELETE from notes where id = 1', {});
-	// 		expect(mockSequelizeQuery).toHaveBeenCalled();
-	// 		expect(result).toBe('[{"status":"abc"}]');
-	// 		mockSequelizeQuery.mockRestore();
-	// 	});
-	// });
-	// describe('The function updateQuery', () => {
-	// 	it ('should call sequelize.query', async() => {
-	// 		const mockSequelizeQuery = jest.spyOn(sequelize,'query');
-	// 		mockSequelizeQuery.mockResolvedValue('[{"status":"abc"}]');
-	// 		const result = await dbUtils.updateQuery('UPDATE notes set isactive = false where id = 1', {});
-	// 		expect(mockSequelizeQuery).toHaveBeenCalled();
-	// 		expect(result).toBe('[{"status":"abc"}]');
-	// 		mockSequelizeQuery.mockRestore();
-	// 	});
-	// });
+	describe('The function deleteQuery', () => {
+		it ('should call sequelize.query', async() => {
+			const mockSequelizeQuery = jest.spyOn(sequelize,'query');
+			mockSequelizeQuery.mockResolvedValue('[{"status":"abc"}]');
+			const result = await dbUtils.deleteQuery('DELETE from notes where id = 1', {});
+			expect(mockSequelizeQuery).toHaveBeenCalled();
+			expect(result).toBe('[{"status":"abc"}]');
+			mockSequelizeQuery.mockRestore();
+		});
+	});
+	describe('The function updateQuery', () => {
+		it ('should call sequelize.query', async() => {
+			const mockSequelizeQuery = jest.spyOn(sequelize,'query');
+			mockSequelizeQuery.mockResolvedValue('[{"status":"abc"}]');
+			const result = await dbUtils.updateQuery('UPDATE notes set isactive = false where id = 1', {});
+			expect(mockSequelizeQuery).toHaveBeenCalled();
+			expect(result).toBe('[{"status":"abc"}]');
+			mockSequelizeQuery.mockRestore();
+		});
+	});
 });
