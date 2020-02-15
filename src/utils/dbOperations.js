@@ -12,19 +12,21 @@ const insertNote = async (jsonObj2) =>{
 };
 
 const deleteQuery = async(id) => {
-	await db.notes.destroy({
+	const notes = await db.notes.destroy({
 		where :{
 			id: id
 		}
 	});
+	return notes;
 };
 
 const updateQuery = async(id) => {
-	await db.notes.update({isactive:false}, {
+	const result = await db.notes.update({isactive:false}, {
 		where: {
 			id:id
 		}
 	});
+	return result;
 };
 
 module.exports = {insertNote, getNotes, deleteQuery, updateQuery};

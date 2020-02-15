@@ -3,8 +3,8 @@ const dbUtils = require('../utils/dbOperations.js');
 
 const getNotes = async (request,h) => {
 	try{
-		const notes = dbUtils.getNotes();
-		return h.response(`All notes: ${JSON.stringify(notes)}`).code(200);
+		const notes = await dbUtils.getNotes();
+		return h.response(notes).code(200);
 	}
 	catch(e){
 		return h.response(e.message).code(500);
@@ -35,7 +35,9 @@ const deleteNote = async(request, h)=> {
 	try{
 		const id = request.params.id;
 		const result = await dbUtils.deleteQuery(id);
-		console.log(result);
+		if(result === 0){
+			return h.response(`${id} not found`);
+		}
 		return h.response(`${id} is deleted`).code(200);
 	}
 	catch(e){
@@ -46,7 +48,10 @@ const deleteNote = async(request, h)=> {
 const putNotes = async(request, h) => {
 	try{
 		const id = request.params.id;
-		await dbUtils.updateQuery(id);
+		const result = await dbUtils.updateQuery(id);
+		if(result[0] === 0){
+			return h.response(`${id} not found`);
+		}
 		return h.response(`${id} is updated`);
 	}
 	catch(e){
