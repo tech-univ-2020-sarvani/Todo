@@ -3,8 +3,8 @@ const dbUtils = require('../utils/dbOperations.js');
 
 const getNotes = async (request,h) => {
 	try{
-		const notes = await dbUtils.getNotes();
-		return h.response(notes).code(200);
+		const notes = dbUtils.getNotes();
+		return h.response(`All notes: ${JSON.stringify(notes)}`).code(200);
 	}
 	catch(e){
 		return h.response(e.message).code(500);
