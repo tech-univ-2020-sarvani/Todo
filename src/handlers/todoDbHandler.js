@@ -2,32 +2,56 @@ const uuid = require('uuid');
 const dbUtils = require('../utils/dbOperations.js');
 
 const getNotes = async (request,h) => {
-	const notes = dbUtils.get();
-	return h.response(`All notes: ${JSON.stringify(notes)}`);
+	try{
+		const notes = await dbUtils.getNotes();
+		return h.response(notes).code(200);
+	}
+	catch(e){
+		return h.response(e.message).code(500);
+	}
 };
 
 const postNotes = async (request, h)=> {
-	let jsonObj2 = request.payload;
-	jsonObj2.id = uuid();
-	jsonObj2.isactive = true;
-	dbUtils.insert(jsonObj2);
-	return h.response('Data saved');
+	try{
+		let jsonObj2 = request.payload;
+		jsonObj2.id = uuid();
+		jsonObj2.isactive = true;
+		const note = await dbUtils.insertNote(jsonObj2);
+		const noteData = {
+			title: note.dataValues.title,
+			description: note.dataValues.description,
+			id: note.dataValues.id,
+			isactive: note.dataValues.isactive
+		};
+		return h.response(noteData).code(200);
+	}
+	catch(e){
+		return h.response(e.message).code(500);
+	}
 };
 
-// const deleteNotes = async(request, h)=> {
-// 	const parameters = request.params;
-// 	const result = await dbUtils.deleteQuery(`DELETE from notes where id = '${parameters.id}'`, request.server.sequelize);
-// 	console.log(result);
-// 	if(result[1] === 0){
-// 		h.response(`${parameters.id} is invalid`);
-// 	}
-// 	return h.response('deleted successfully');
-// };
 
-// const putNotes = async(request, h) => {
-// 	const parameters = request.params;
-// 	await dbUtils.updateQuery(`UPDATE notes set isactive = false where id = '${parameters.id}'`, request.server.sequelize);
-// 	return h.response('updated successfully');
-// };
+const deleteNote = async(request, h)=> {
+	try{
+		const id = request.params.id;
+		const result = await dbUtils.deleteQuery(id);
+		console.log(result);
+		return h.response(`${id} is deleted`).code(200);
+	}
+	catch(e){
+		return h.response(e.message).code(500);
+	}
+};
 
-module.exports = {getNotes, postNotes,};
+const putNotes = async(request, h) => {
+	try{
+		const id = request.params.id;
+		await dbUtils.updateQuery(id);
+		return h.response(`${id} is updated`);
+	}
+	catch(e){
+		return h.response(e.message).code(500);
+	}
+};
+
+module.exports = {getNotes, postNotes,deleteNote, putNotes};
