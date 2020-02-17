@@ -48,7 +48,7 @@ describe('the getNotes handler function,', () => {
 
 });
 
-describe('the postNote handler function,', () => {  
+xdescribe('the postNote handler function,', () => {  
 
 	it('should call h.response with success message when /notes is hit with POST', async (done) => {
 		const mockRequest = {

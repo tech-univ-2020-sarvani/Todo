@@ -2,7 +2,7 @@ const dbUtils = require('../../src/utils/dbOperations');
 const sequelize = require('../../src/utils/connection');
 const db = require('../../models/index');
 
-describe('In the dbOperations', () => {
+xdescribe('In the dbOperations', () => {
 	describe('The function get', () => {
 		it ('should call db.notes.findAll()', async() => {
 			const mockSequelizeQuery = jest.spyOn(db.notes,'findAll');

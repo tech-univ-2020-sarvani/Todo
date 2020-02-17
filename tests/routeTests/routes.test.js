@@ -1,7 +1,7 @@
 const start = require('../../server.js');
 const server = start();
 const dbUtils = require('../../src/utils/dbOperations');
-
+const uuid = require('uuid');
 const init = async ()=> {
 	await server.initialize();
 	return server;
@@ -49,7 +49,12 @@ describe('In the server', () => {
 			}
 		};
 		const response = await server.inject(options);
-		expect(response.result).toBe('Data saved');
+		expect(response.result).toBe({
+			title: 'Hapi',
+			description: 'Read the documentation of hapi',
+			noteId: uuid(),
+			isActive: true
+		});
 	});
 	it ('The route DELETE /notes/id should return a statuscode 200', async () => {
 		const options = {
