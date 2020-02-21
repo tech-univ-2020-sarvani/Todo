@@ -4,7 +4,8 @@
   "description": "An application that handles todos",
   "main": "npm node hapi",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "migrate": "sequelize db:migrate"
   },
   "keywords": [
     "npm",
@@ -15,12 +16,17 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.8.0",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "sequelize-cli": "^5.5.1"
   },
   "dependencies": {
     "@hapi/hapi": "^19.0.5",
     "@hapi/joi": "^17.1.0",
     "axios": "^0.19.2",
-    "promise-fs": "^2.1.1"
+    "hapi-postgres-connection": "^6.5.1",
+    "pg": "^7.18.0",
+    "pg-hstore": "^2.3.3",
+    "promise-fs": "^2.1.1",
+    "sequelize": "^5.21.3"
   }
 }

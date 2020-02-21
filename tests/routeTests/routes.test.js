@@ -1,7 +1,7 @@
-const fs = require('promise-fs');
 const start = require('../../server.js');
 const server = start();
-
+const dbUtils = require('../../src/utils/dbOperations');
+const uuid = require('uuid');
 const init = async ()=> {
 	await server.initialize();
 	return server;
@@ -17,15 +17,15 @@ describe('In the server', () => {
 		await server.stop();
 	});
 	
-	it ('The route GET /notes should return the contents from the file', async () => {
-		const jsonObj = await fs.readFile('./resources/notes.json', 'utf8');
+	it ('The route GET /notes should return a statusCode 200', async () => {
 		const options = {
 			method: 'GET',
 			url: '/notes',
 		};
+		const mockPostNotes = jest.spyOn(dbUtils, 'get');
+		mockPostNotes.mockResolvedValue('{"title":"task1"}');
 		const response = await server.inject(options);
-		console.log(response);
-		expect(response.result).toBe(jsonObj);
+		expect(response.statusCode).toBe(200);
 	});
 	it('The route POST /notes should return a statusCode 200', async () => {
 		const options = {
@@ -49,13 +49,20 @@ describe('In the server', () => {
 			}
 		};
 		const response = await server.inject(options);
-		expect(response.result).toBe('Data saved');
+		expect(response.result).toBe({
+			title: 'Hapi',
+			description: 'Read the documentation of hapi',
+			noteId: uuid(),
+			isActive: true
+		});
 	});
 	it ('The route DELETE /notes/id should return a statuscode 200', async () => {
 		const options = {
 			method: 'DELETE',
 			url: '/notes/5deb4192-eb38-4d76-8021-a6b3d4685353',
 		};
+		const mockDeleteNotes = jest.spyOn(dbUtils, 'deleteQuery');
+		mockDeleteNotes.mockResolvedValue('{"title":"task1", "id":"5deb4192-eb38-4d76-8021-a6b3d4685353"}');
 		const response = await server.inject(options);
 		expect(response.statusCode).toBe(200);
 	});
@@ -64,6 +71,8 @@ describe('In the server', () => {
 			method: 'PUT',
 			url: '/notes/5deb4192-eb38-4d76-8021-a6b3d4685353',
 		};
+		const mockPutNotes = jest.spyOn(dbUtils, 'updateQuery');
+		mockPutNotes.mockResolvedValue('{"title":"task1"}');
 		const response = await server.inject(options);
 		expect(response.statusCode).toBe(200);
 	});

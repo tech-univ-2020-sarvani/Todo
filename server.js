@@ -4,8 +4,11 @@ const Joi = require('@hapi/joi');
 
 const start = () => {
 	const server = Hapi.Server({
-		host: 'localhost',
-		port: 8080
+		host: '0.0.0.0',
+		port: 8080,
+		routes:{
+			cors:true
+		},
 	});
 	server.route(routes);
 	server.validator(Joi);
