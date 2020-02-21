@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "sarvanideekshitula",
-    "password": null,
-    "database": "todoApp",
-    "host": "127.0.0.1",
+    "password": "qwerty",
+    "database": "todoApp2",
+    "host": "postgres",
     "dialect": "postgres",
     "operatorsAliases": false
   },

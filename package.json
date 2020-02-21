@@ -4,7 +4,8 @@
   "description": "An application that handles todos",
   "main": "npm node hapi",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "migrate": "sequelize db:migrate"
   },
   "keywords": [
     "npm",
