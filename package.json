@@ -18,7 +18,7 @@
     "jest": "^25.1.0"
   },
   "dependencies": {
-    "@hapi/hapi": "^19.0.5",
+    "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.0",
     "axios": "^0.19.2",
     "promise-fs": "^2.1.1"
